@@ -1,6 +1,7 @@
 package com.exl.playrecord;
 
-import android.graphics.Color;
+import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -11,17 +12,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-
-import java.util.zip.Inflater;
 
 public class MainActivity extends AppCompatActivity {
 
     Boolean snackFlag=false;
     Snackbar snackbar;
     Snackbar.Callback call;
+    EditText snack_editText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
                         LayoutInflater myInflater = getLayoutInflater();
                         View snackView = myInflater.inflate(R.layout.my_snackbar, null);
                         snackView.setBackgroundColor(ContextCompat.getColor(getBaseContext(),R.color.colorsnackEdit));
-                        EditText editText = (EditText) snackView.findViewById(R.id.snackEditText);
+                        snack_editText = (EditText) snackView.findViewById(R.id.snackEditText);
                         Button btn_add = (Button) snackView.findViewById(R.id.snackButtonAdd);
                         View.OnClickListener clk_add = new View.OnClickListener() {
                             @Override
@@ -67,9 +68,14 @@ public class MainActivity extends AppCompatActivity {
                     if (snackFlag==false) {
                         snackFlag=true;
                         snackbar.show();
+                        snack_editText.requestFocus();
+                        InputMethodManager imm = (InputMethodManager)getSystemService(Activity.INPUT_METHOD_SERVICE);
+                        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED,InputMethodManager.HIDE_IMPLICIT_ONLY);
                     }else {
                         snackFlag = false;
                         snackbar.dismiss();
+                        InputMethodManager imm = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
+                        imm.hideSoftInputFromWindow(snack_editText.getWindowToken(), 0);
                     }
                 }
             });

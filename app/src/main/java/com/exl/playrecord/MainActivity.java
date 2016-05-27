@@ -1,7 +1,6 @@
 package com.exl.playrecord;
 
 import android.app.Activity;
-import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -21,7 +20,6 @@ public class MainActivity extends AppCompatActivity {
 
     Boolean snackFlag=false;
     Snackbar snackbar;
-    Snackbar.Callback call;
     EditText snack_editText;
 
     @Override
@@ -31,13 +29,13 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        //FAB按鈕<=====
         final FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-
-
         if (fab != null) {
             fab.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+
                     if (snackbar==null) {
                         //Create Snackbar
                         snackbar = Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_INDEFINITE);
@@ -79,6 +77,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
             });
+        //FAB按鈕=====>
         }
     }
 

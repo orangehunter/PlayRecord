@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="1">
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/snackEditText"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_toStartOf="@+id/snackButtonCancel"
+        android:layout_toLeftOf="@+id/snackButtonCancel" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:text="@string/button_add"
+        android:id="@+id/snackButtonAdd"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:text="@string/button_cancel"
+        android:id="@+id/snackButtonCancel"
+        android:layout_alignParentTop="true"
+        android:layout_toLeftOf="@+id/snackButtonAdd"
+        android:layout_toStartOf="@+id/snackButtonAdd" />
+
+</RelativeLayout>

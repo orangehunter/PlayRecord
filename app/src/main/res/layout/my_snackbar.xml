@@ -11,8 +11,8 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_toStartOf="@+id/snackButtonCancel"
-        android:layout_toLeftOf="@+id/snackButtonCancel" />
+        android:layout_toStartOf="@+id/snackButtonAdd"
+        android:layout_toLeftOf="@+id/snackButtonAdd" />
 
     <Button
         style="?android:attr/buttonStyleSmall"
@@ -23,15 +23,5 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
-
-    <Button
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="80dp"
-        android:layout_height="wrap_content"
-        android:text="@string/button_cancel"
-        android:id="@+id/snackButtonCancel"
-        android:layout_alignParentTop="true"
-        android:layout_toLeftOf="@+id/snackButtonAdd"
-        android:layout_toStartOf="@+id/snackButtonAdd" />
 
 </RelativeLayout>

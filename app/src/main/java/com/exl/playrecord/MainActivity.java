@@ -16,11 +16,14 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.exl.playrecord.Adapter.SQLAdapter;
+
 public class MainActivity extends AppCompatActivity {
 
-    Boolean snackFlag=false;
+    Boolean snackFlag = false;
     Snackbar snackbar;
     EditText snack_editText;
+    SQLAdapter db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +31,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+        db=new SQLAdapter(getApplicationContext());
+        db.open();
         //FAB按鈕<=====
         final FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         if (fab != null) {
@@ -36,20 +40,20 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View view) {
 
-                    if (snackbar==null) {
+                    if (snackbar == null) {
                         //Create Snackbar
                         snackbar = Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_INDEFINITE);
 
                         //Get Snackbar Layout
                         Snackbar.SnackbarLayout layout = (Snackbar.SnackbarLayout) snackbar.getView();
-                        layout.setBackgroundColor(ContextCompat.getColor(getBaseContext(),R.color.colorsnackEdit));
+                        layout.setBackgroundColor(ContextCompat.getColor(getBaseContext(), R.color.colorsnackEdit));
                         //Hide textView
                         TextView textView = (TextView) layout.findViewById(android.support.design.R.id.snackbar_text);
                         textView.setVisibility(View.INVISIBLE);
                         //Setup custom View
                         LayoutInflater myInflater = getLayoutInflater();
                         View snackView = myInflater.inflate(R.layout.my_snackbar, null);
-                        snackView.setBackgroundColor(ContextCompat.getColor(getBaseContext(),R.color.colorsnackEdit));
+                        snackView.setBackgroundColor(ContextCompat.getColor(getBaseContext(), R.color.colorsnackEdit));
                         snack_editText = (EditText) snackView.findViewById(R.id.snackEditText);
                         Button btn_add = (Button) snackView.findViewById(R.id.snackButtonAdd);
                         View.OnClickListener clk_add = new View.OnClickListener() {
@@ -63,13 +67,13 @@ public class MainActivity extends AppCompatActivity {
                         layout.addView(snackView, 0);
                     }
 
-                    if (snackFlag==false) {
-                        snackFlag=true;
+                    if (snackFlag == false) {
+                        snackFlag = true;
                         snackbar.show();
                         snack_editText.requestFocus();
-                        InputMethodManager imm = (InputMethodManager)getSystemService(Activity.INPUT_METHOD_SERVICE);
-                        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED,InputMethodManager.HIDE_IMPLICIT_ONLY);
-                    }else {
+                        InputMethodManager imm = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
+                        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
+                    } else {
                         snackFlag = false;
                         snackbar.dismiss();
                         InputMethodManager imm = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
@@ -77,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
             });
-        //FAB按鈕=====>
+            //FAB按鈕=====>
         }
     }
 
@@ -101,5 +105,11 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onDestroy() {
+        db.close();
+        super.onDestroy();
     }
 }

@@ -1,4 +1,4 @@
-package com.exl.playrecord.Adapter;
+package com.exl.playrecord.script;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;

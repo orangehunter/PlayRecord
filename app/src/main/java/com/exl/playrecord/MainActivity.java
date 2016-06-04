@@ -16,14 +16,14 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.exl.playrecord.Adapter.SQLAdapter;
+import com.exl.playrecord.script.SQLController;
 
 public class MainActivity extends AppCompatActivity {
 
     Boolean snackFlag = false;
     Snackbar snackbar;
     EditText snack_editText;
-    SQLAdapter db;
+    SQLController db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        db=new SQLAdapter(getApplicationContext());
+        db=new SQLController(getApplicationContext());
         db.open();
         //FAB按鈕<=====
         final FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);

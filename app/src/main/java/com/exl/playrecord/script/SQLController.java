@@ -1,4 +1,4 @@
-package com.exl.playrecord.Adapter;
+package com.exl.playrecord.script;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -12,7 +12,7 @@ import org.json.JSONObject;
 
 import java.sql.Date;
 
-public class SQLAdapter {
+public class SQLController {
     //public static final String KEY_ACTION = "action";
     //public static final String KEY_ACTIONID = "actionid";
     //public static final String KEY_SYSTEM = "system";
@@ -25,11 +25,11 @@ public class SQLAdapter {
 	private SQLiteDatabase database;
 	private SQLHelper dbHelper;
 
-	public SQLAdapter(Context context) {
+	public SQLController(Context context) {
 		this.context = context;
 	}
 
-	public SQLAdapter open() throws SQLException {
+	public SQLController open() throws SQLException {
 		dbHelper = new SQLHelper(context);
 		database = dbHelper.getWritableDatabase();
 		return this;

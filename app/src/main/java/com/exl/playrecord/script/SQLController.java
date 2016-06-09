@@ -6,7 +6,7 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.exl.playrecord.Struct.DB_datas;
+import com.exl.playrecord.Struct.Item_names;
 
 import org.json.JSONObject;
 
@@ -18,7 +18,7 @@ public class SQLController {
     //public static final String KEY_SYSTEM = "system";
     //public static final String KEY_READED = "readed";
 
-    DB_datas dbs;
+    Item_names dbs;
 
 	private static final String DATABASE_TABLE = "datas";
 	private Context context;

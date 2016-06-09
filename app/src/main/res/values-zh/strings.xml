@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Play Record</string>
+    <string name="action_settings">設定</string>
+    <string name="button_add">新增</string>
+    <string name="button_cancel">取消</string>
+    <string name="data_tmp">找不到暫存檔!</string>
+    <string name="data_save_alert_message">儲存時發生了一些問題!</string>
+    <string name="data_save_alert_btn_redo">重試</string>
+    <string name="data_read_alert_message"></string>
+</resources>

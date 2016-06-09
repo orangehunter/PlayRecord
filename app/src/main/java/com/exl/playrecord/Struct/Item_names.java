@@ -3,7 +3,7 @@ package com.exl.playrecord.Struct;
 /**
  * Created by michael on 2016/6/4.
  */
-public class DB_datas {
+public class Item_names {
     public static final String KEY_ROWID = "_id";
     public static final String KEY_TYPE = "type";
     public static final String KEY_TITLE = "title";

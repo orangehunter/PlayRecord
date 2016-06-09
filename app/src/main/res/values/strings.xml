@@ -1,6 +1,12 @@
 <resources>
-    <string name="app_name">Play Record</string>
+    <string name="app_name" translatable="false">Play Record</string>
     <string name="action_settings">Settings</string>
     <string name="button_add">Save</string>
     <string name="button_cancel">Cancel</string>
+    <string name="data_tmp">Tmp file not found!</string>
+    <string name="data_save_alert_title" translatable="false">!!</string>
+    <string name="data_save_alert_message">There is something wrong while saving!</string>
+    <string name="data_save_alert_btn_redo">Retry</string>
+    <string name="data_read_alert_message">No old data found. Start with blank?</string>
+    <string name="data_read_alert_btn_yes">Yes</string>
 </resources>

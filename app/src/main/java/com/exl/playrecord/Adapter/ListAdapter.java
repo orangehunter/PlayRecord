@@ -9,8 +9,8 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import com.exl.playrecord.R;
-import com.exl.playrecord.Struct.DB_datas;
+
+import com.exl.playrecord.Struct.Item_names;
 
 import org.json.JSONObject;
 
@@ -21,10 +21,12 @@ import org.json.JSONObject;
 class ListAdapter extends BaseAdapter {
 
     private LayoutInflater myInfalter;
+    private Context context;
 
     private SparseArray<JSONObject> array;
 
     public ListAdapter(Context context, SparseArray<JSONObject> array){
+        this.context=context;
         myInfalter=LayoutInflater.from(context);
         this.array=array;
     }
@@ -60,18 +62,18 @@ class ListAdapter extends BaseAdapter {
         }else {
             holder=(ViewHolder)convertView.getTag();
         }
-        holder.title.setText(getString(position,DB_datas.KEY_TITLE));
-        holder.date.setText(getString(position,DB_datas.KEY_UPDATE));
-        
-        if (getString(position,DB_datas.KEY_EPISODE_MAX).equals("")) {
-            holder.episoate.setText(getString(position, DB_datas.KEY_EPISODE));
+        holder.title.setText(getString(position, Item_names.KEY_TITLE));
+        holder.date.setText(getString(position, Item_names.KEY_UPDATE));
+
+        if (getString(position, Item_names.KEY_EPISODE_MAX).equals("")) {
+            holder.episoate.setText(getString(position, Item_names.KEY_EPISODE));
         }else{
-            holder.episoate.setText(getString(position, DB_datas.KEY_EPISODE)+"/"+getString(position,DB_datas.KEY_EPISODE_MAX));
+            holder.episoate.setText(getString(position, Item_names.KEY_EPISODE)+"/"+getString(position, Item_names.KEY_EPISODE_MAX));
         }
         return convertView;
     }
 
     private String getString(int position,String name){
-        return array.get(position).optString(name,"Error");
+        return array.get(position).optString(name,"*Error!Data Null*");
     }
 }

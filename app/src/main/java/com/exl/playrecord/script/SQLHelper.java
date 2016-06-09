@@ -5,11 +5,11 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-import com.exl.playrecord.Struct.DB_datas;
+import com.exl.playrecord.Struct.Item_names;
 
 public class SQLHelper extends SQLiteOpenHelper {
 
-    static DB_datas dbs;
+    static Item_names dbs;
 
     private static final int DATABASE_VERSION = 1;
     private static final String DATABASE_NAME = "play_record_data";

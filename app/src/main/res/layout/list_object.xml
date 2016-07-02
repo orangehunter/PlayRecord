@@ -24,14 +24,14 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:text="Large Text"
-                android:id="@+id/title" />
+                android:id="@+id/title_main" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:text="Small Text"
-                android:id="@+id/update_date" />
+                android:id="@+id/update_date_main" />
         </LinearLayout>
 
         <TextView
@@ -39,7 +39,7 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="Large Text"
-            android:id="@+id/episode"
+            android:id="@+id/episode_main"
             android:layout_weight="0.52" />
     </LinearLayout>
 </RelativeLayout>

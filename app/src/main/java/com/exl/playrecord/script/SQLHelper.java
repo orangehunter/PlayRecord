@@ -19,12 +19,11 @@ public class SQLHelper extends SQLiteOpenHelper {
                     +dbs.KEY_TYPE+" TINYTEXT,"
                     +dbs.KEY_TITLE+" TINYTEXT,"
                     +dbs.KEY_SEASON+" TINYINT[1],"
-                    +dbs.KEY_EPISODE+" TINYINT[1],"
-                    +dbs.KEY_EPISODE_MAX+" TINYINT[1],"
-                    +dbs.KEY_MESSAGE+" TINYTEXT,"
-                    +dbs.KEY_CREATE+" DATE,"
-                    +dbs.KEY_UPDATE+" DATE,"
-                    +dbs.KEY_REMIND+ " DATE)";
+                    +dbs.KEY_SEASON_EPISODES+" TEXT,"
+                    +dbs.KEY_MESSAGE+" TEXT,"
+                    +dbs.KEY_CREATE+" Long,"
+                    +dbs.KEY_UPDATE+" Long,"
+                    +dbs.KEY_REMIND+ "Long)";
 
     public SQLHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);

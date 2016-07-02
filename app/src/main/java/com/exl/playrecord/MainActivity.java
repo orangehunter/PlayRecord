@@ -6,7 +6,10 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Menu;
@@ -16,6 +19,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.exl.playrecord.Adapter.RecyclerAdapter;
+import com.exl.playrecord.Struct.Item_datas;
 import com.exl.playrecord.script.SQLController;
 
 public class MainActivity extends AppCompatActivity {
@@ -23,7 +28,8 @@ public class MainActivity extends AppCompatActivity {
     Boolean snackFlag = false;
     Snackbar snackbar;
     EditText snack_editText;
-    SQLController db;
+    RecyclerView recyclerView;
+    Variable variable;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,8 +37,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        db=new SQLController(getApplicationContext());
-        db.open();
+        variable.db=new SQLController(getApplicationContext());
+        variable.db.open();
+
+        variable.datas=new SparseArray<Item_datas>();
         //FAB按鈕<=====
         final FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         if (fab != null) {
@@ -82,6 +90,8 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
             //FAB按鈕=====>
+            recyclerView.setLayoutManager(new LinearLayoutManager(this));
+            recyclerView.setAdapter(new  RecyclerAdapter(variable.db));
         }
     }
 
@@ -109,7 +119,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
-        db.close();
+        variable.db.close();
         super.onDestroy();
     }
 }

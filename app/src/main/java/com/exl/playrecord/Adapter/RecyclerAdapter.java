@@ -51,7 +51,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         if (itemDatas.season!=0){
             episoate_string+=("S"+itemDatas.season+" ");
         }
-        if (itemDatas.episode_max.get()==0){
+        if (itemDatas.episode_max.get(0)==0){
             episoate_string+=itemDatas.episode;
         }else {
             episoate_string+=(itemDatas.episode+"/"+itemDatas.episode_max);

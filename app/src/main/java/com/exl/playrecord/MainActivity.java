@@ -2,6 +2,7 @@ package com.exl.playrecord;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
@@ -67,7 +68,18 @@ public class MainActivity extends AppCompatActivity {
                         View.OnClickListener clk_add = new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                //TODO
+                                if(!snack_editText.getText().toString().equals("")){
+                                    Item_datas tmp=new Item_datas();
+                                    tmp.title=snack_editText.getText().toString();
+                                    tmp.type="";
+                                    tmp.season=0;
+                                    tmp.seasonMax=0;
+                                    tmp.message="";
+                                    tmp.create_date= SystemClock.currentThreadTimeMillis();
+                                    tmp.update_date=new Long(0);
+                                    tmp.remind=new Long(0);
+                                    variable.db.insertsql(tmp);
+                                }
                             }
                         };
                         btn_add.setOnClickListener(clk_add);
@@ -90,8 +102,9 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
             //FAB按鈕=====>
+            variable.datas=variable.db.renewDatasFromSQL();
             recyclerView.setLayoutManager(new LinearLayoutManager(this));
-            recyclerView.setAdapter(new  RecyclerAdapter(variable.db));
+            recyclerView.setAdapter(new  RecyclerAdapter(variable));
         }
     }
 

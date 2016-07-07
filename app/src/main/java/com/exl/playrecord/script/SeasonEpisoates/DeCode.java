@@ -17,6 +17,8 @@ public class DeCode {
     //Season預設採純數字 但是也可以使用客制化的字串 例{"起":"12/30","承":"0/100","轉":"12/30","合":"12/30"}
     JSONObject jason;
     JSONArray names;
+    public SparseArray<Integer> episode;
+    public SparseArray<Integer> episode_max;
     public DeCode(String data){
         try {
             jason=new JSONObject(data);
@@ -32,13 +34,12 @@ public class DeCode {
     }
 
     public Boolean isCustomSeason(){
-        boolean tmpFlag=true;
         for(int i=0;i<jason.length();i++){
             if (names.optInt(i, -1) == -1) {
-                tmpFlag=false;
+                return true;
             }
         }
-        return tmpFlag;
+        return false;
     }
 
     public SparseArray<String> getCustomSeason(){
@@ -48,16 +49,23 @@ public class DeCode {
         }
         return tmp;
     }
+    public SparseArray<Integer> getEpisode(){
+        return  episode;
+    }
 
-    public Item_datas getEpisode_EpisoateMax(Item_datas datas){
-        datas.episode=new SparseArray<>();
-        datas.episode_max=new SparseArray<>();
+    public SparseArray<Integer> getEpisode_max(){
+        return  episode_max;
+    }
+
+    public void getEpisode_EpisoateMax(){
+        episode=new SparseArray<Integer>();
+        episode_max=new SparseArray<Integer>();
         for(int i=0;i<jason.length();i++){
-            int[] ep_epMax=getEp_EpMax(i);
-            datas.episode.put(i,ep_epMax[0]);
-            datas.episode_max.put(i,ep_epMax[1]);
+            int[] ep_epMax;
+            ep_epMax=getEp_EpMax(i);
+            episode.put(i,ep_epMax[0]);
+            episode_max.put(i,ep_epMax[1]);
         }
-        return datas;
     }
 
     private int[] getEp_EpMax(int i){
@@ -67,8 +75,10 @@ public class DeCode {
             boolean across=false;
             String tmp=jason.getString(names.getString(i));
             for(int k=0;k<tmp.length();k++){
-                if (tmp.substring(k,k+1).equals("/"))
-                    across=true;
+                if (tmp.substring(k,k+1).equals("/")) {
+                    across = true;
+                    k++;
+                }
                 if (!across){
                     ep_s+=tmp.substring(k,k+1);
                 }else {
@@ -80,7 +90,6 @@ public class DeCode {
             return new int[]{ep,epmax};
         }catch (JSONException e){
             Log.e("Class DeCodeSE","getEp_EpMax:"+e);
-        }finally {
             return new int[]{0,0};
         }
     }

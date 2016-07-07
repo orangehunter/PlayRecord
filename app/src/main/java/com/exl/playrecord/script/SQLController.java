@@ -111,17 +111,18 @@ public class SQLController {
 		try{
 			while (cursor.moveToNext()){
 				Item_datas item = null;
-				item.id             =cursor.getLong(0);
+				item.id             =cursor.getInt(0);
 				item.type           =cursor.getString(1);
 				item.title          =cursor.getString(2);
 				item.season         =cursor.getInt(3);
 				DeCode sed=new DeCode(cursor.getString(4));
 				item.seasonMax      =sed.getSize();
-				item=sed.getEpisode_EpisoateMax(item);
+				item.episode		=sed.getEpisode();
+				item.episode_max	=sed.getEpisode_max();
 				item.message        =cursor.getString(5);
-				item.create_date    =cursor.getInt(6);
-				item.update_date    =cursor.getInt(7);
-				item.remind         =cursor.getInt(8);
+				item.create_date    =cursor.getLong(6);
+				item.update_date    =cursor.getLong(7);
+				item.remind         =cursor.getLong(8);
 
 				item.isCustomSeason=sed.isCustomSeason();
 				if (item.isCustomSeason){

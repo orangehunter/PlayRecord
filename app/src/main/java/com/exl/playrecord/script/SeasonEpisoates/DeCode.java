@@ -24,19 +24,25 @@ public class DeCode {
             jason=new JSONObject(data);
             names=jason.names();
         } catch (JSONException e) {
-            Log.e("Class DeCodeSE","SeasonEpisoates:"+e);
+            Log.e("Class DeCodeSE","SeasonEpisoates:"+e+" String:"+data);
             e.printStackTrace();
         }
     }
 
     public int getSize(){
-        return jason.length();
+        if (jason!=null) {
+            return jason.length();
+        }else {
+            return 0;
+        }
     }
 
     public Boolean isCustomSeason(){
-        for(int i=0;i<jason.length();i++){
-            if (names.optInt(i, -1) == -1) {
-                return true;
+        if (jason!=null) {
+            for (int i = 0; i < jason.length(); i++) {
+                if (names.optInt(i, -1) == -1) {
+                    return true;
+                }
             }
         }
         return false;

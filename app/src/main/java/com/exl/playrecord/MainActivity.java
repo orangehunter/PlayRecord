@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
     Snackbar snackbar;
     EditText snack_editText;
     RecyclerView recyclerView;
+    RecyclerAdapter recyclerAdapter;
     Variable variable;
 
     @Override
@@ -42,6 +44,13 @@ public class MainActivity extends AppCompatActivity {
         variable.db.open();
 
         variable.datas=new SparseArray<Item_datas>();
+
+        recyclerView=(RecyclerView)findViewById(R.id.ReView);
+        LinearLayoutManager llm = new LinearLayoutManager(this);
+        llm.setOrientation(LinearLayoutManager.VERTICAL);
+        recyclerView.setLayoutManager(llm);
+        recyclerAdapter=new RecyclerAdapter(variable.datas,this);
+        recyclerView.setAdapter(recyclerAdapter);
         //FAB按鈕<=====
         final FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         if (fab != null) {
@@ -78,7 +87,14 @@ public class MainActivity extends AppCompatActivity {
                                     tmp.create_date= SystemClock.currentThreadTimeMillis();
                                     tmp.update_date=new Long(0);
                                     tmp.remind=new Long(0);
-                                    variable.db.insertsql(tmp);
+                                    tmp.isCustomSeason=false;
+                                    if(variable.db.insertsql(tmp)==-1) {
+                                        Log.e("MainActivSnackClick","Unable to insertsql!!");
+                                    }
+                                    reNewRecyclerAdapter();
+                                    snackbar.dismiss();
+                                    InputMethodManager imm = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
+                                    imm.hideSoftInputFromWindow(snack_editText.getWindowToken(), 0);
                                 }
                             }
                         };
@@ -101,10 +117,14 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
             });
-            //FAB按鈕=====>
-            variable.datas=variable.db.renewDatasFromSQL();
-            recyclerView.setLayoutManager(new LinearLayoutManager(this));
-            recyclerView.setAdapter(new  RecyclerAdapter(variable));
+        }
+        //FAB按鈕=====>
+        reNewRecyclerAdapter();
+    }
+    public void reNewRecyclerAdapter(){
+        if(variable.db.getCount()!=0) {
+            variable.datas = variable.db.renewDatasFromSQL();
+            recyclerAdapter.setData(variable.datas);
         }
     }
 

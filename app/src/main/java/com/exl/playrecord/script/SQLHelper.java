@@ -13,8 +13,9 @@ public class SQLHelper extends SQLiteOpenHelper {
 
     private static final int DATABASE_VERSION = 1;
     private static final String DATABASE_NAME = "play_record_data";
+    private static final String DATABASE_TABLE = "datas";
     private static final String CREATE_TABLE=
-            "CREATE TABLE IF NOT EXISTS message("
+            "CREATE TABLE IF NOT EXISTS "+DATABASE_TABLE+"("
                     +dbs.KEY_ROWID+" INTEGER PRIMARY KEY,"
                     +dbs.KEY_TYPE+" TINYTEXT,"
                     +dbs.KEY_TITLE+" TINYTEXT,"
@@ -23,7 +24,7 @@ public class SQLHelper extends SQLiteOpenHelper {
                     +dbs.KEY_MESSAGE+" TEXT,"
                     +dbs.KEY_CREATE+" Long,"
                     +dbs.KEY_UPDATE+" Long,"
-                    +dbs.KEY_REMIND+ "Long)";
+                    +dbs.KEY_REMIND+ " Long)";
 
     public SQLHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);

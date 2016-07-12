@@ -29,12 +29,20 @@ public class SQLController {
 	public SQLController open() throws SQLException {
 		dbHelper = new SQLHelper(context);
 		database = dbHelper.getWritableDatabase();
+        if (getCount() == 0) {
+            dbHelper.onCreate(database);
+        }
 		return this;
 	}
 
 	public void close() {
 		dbHelper.close();
 	}
+
+    public int getCount(){
+        Cursor myCursor = database.rawQuery("SELECT name FROM sqlite_master WHERE type='table' AND name='"+DATABASE_TABLE+"'", null);
+        return myCursor.getCount();
+    }
 
 	public long insertsql( Item_datas data) {
 		ContentValues initialValues = createContentValues(data);
@@ -97,7 +105,7 @@ public class SQLController {
 		value.put(dbs.KEY_SEASON,datas.season);
 
 		EnCode seE=new EnCode(datas);
-        value.put(dbs.KEY_SEASON_EPISODES,seE.toString());
+        value.put(dbs.KEY_SEASON_EPISODES,seE.getString());
 
 		value.put(dbs.KEY_MESSAGE,datas.message);
         value.put(dbs.KEY_CREATE,datas.create_date);
@@ -109,27 +117,33 @@ public class SQLController {
 		Cursor cursor=fetchAllsql();
 		SparseArray<Item_datas> tmp=new SparseArray<Item_datas>();
 		try{
+            int i=0;
 			while (cursor.moveToNext()){
 				Item_datas item = null;
+                item=new Item_datas();
 				item.id             =cursor.getInt(0);
 				item.type           =cursor.getString(1);
 				item.title          =cursor.getString(2);
 				item.season         =cursor.getInt(3);
-				DeCode sed=new DeCode(cursor.getString(4));
-				item.seasonMax      =sed.getSize();
-				item.episode		=sed.getEpisode();
-				item.episode_max	=sed.getEpisode_max();
 				item.message        =cursor.getString(5);
 				item.create_date    =cursor.getLong(6);
 				item.update_date    =cursor.getLong(7);
 				item.remind         =cursor.getLong(8);
 
-				item.isCustomSeason=sed.isCustomSeason();
-				if (item.isCustomSeason){
-					item.customSeasonNames=sed.getCustomSeason();
-				}else {
-					item.customSeasonNames=null;
-				}
+                if (!cursor.getString(4).equals("")) {
+                    DeCode sed = new DeCode(cursor.getString(4));
+                    item.seasonMax = sed.getSize();
+                    item.episode = sed.getEpisode();
+                    item.episode_max = sed.getEpisode_max();
+                    item.isCustomSeason=sed.isCustomSeason();
+                    if (item.isCustomSeason){
+                        item.customSeasonNames=sed.getCustomSeason();
+                    }else {
+                        item.customSeasonNames=null;
+                    }
+                }
+                tmp.put(i,item);
+                i++;
 			}
 		}finally {
 			cursor.close();

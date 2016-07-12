@@ -16,11 +16,15 @@ public class EnCode {
     public EnCode(Item_datas datas){
         jason=new JSONObject();
         if (!datas.isCustomSeason){
-            for(int i=0;i<datas.seasonMax;i++){
-                try {
-                    jason.put("" + i, datas.episode + "/" + datas.episode_max);
-                }catch (JSONException e){
-                    Log.e("SeEncode","EnCode"+" Title:"+datas.title+" i="+i+" ErrorCode:"+e);
+            if (datas.seasonMax==0){
+                jason=null;
+            }else {
+                for (int i = 0; i < datas.seasonMax; i++) {
+                    try {
+                        jason.put("" + i, datas.episode + "/" + datas.episode_max);
+                    } catch (JSONException e) {
+                        Log.e("SeEncode", "EnCode" + " Title:" + datas.title + " i=" + i + " ErrorCode:" + e);
+                    }
                 }
             }
         }else {
@@ -35,6 +39,10 @@ public class EnCode {
     }
 
     public String getString(){
-        return jason.toString();
+        if (jason==null){
+            return "";
+        }else {
+            return jason.toString();
+        }
     }
 }
